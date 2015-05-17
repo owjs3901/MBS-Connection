@@ -1,0 +1,6 @@
+name: MBS_Connection
+version: 1.0.0
+database: false
+main: com.MBS.Connection.Connection_main
+author: 엠군
+description: 엠이 만든 플러그인을 사용 가능하게 합니다.

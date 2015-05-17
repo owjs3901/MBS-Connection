@@ -9,6 +9,7 @@ package com.MBS.Connection;
 import java.io.*;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.MBS.Connection.Connection_EULA.NetworkEULA;
@@ -21,6 +22,8 @@ public class Connection_main extends JavaPlugin{
 	public void onEnable(){
 		File eula=new File("M's Plugins EULA.txt");
 		title();
+		PluginDescriptionFile d=this.getDescription();
+		Connection_Update.lookUpdate(d.getVersion());
 		if(!(eula.exists())){
 			Connection_Error.setError(1);
 			NetworkEULA.createEULA();

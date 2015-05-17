@@ -82,12 +82,16 @@ class Connection_Error{
 				System.exit(0);
 				break;
 			case 404:
-				Bukkit.getConsoleSender().sendMessage("[오류 : 404] EULA 문서를 다운로드하던 중 오류가 생겼습니다.");
-				Bukkit.getConsoleSender().sendMessage("[오류 : 404] 로컬 EULA 문서를 다운로드합니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 404] EULA 문서를 내려받던 중 오류가 생겼습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 404] 로컬 EULA 문서를 내려받습니다.");
 				break;
 			case 405:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 405] EULA 문서를 확인하던 중 오류가 생겼습니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 405] 로컬 EULA 문서 정보로 EULA 문서를 인증합니다.");
+				break;
+			case 406:
+				Bukkit.getConsoleSender().sendMessage("[오류 : 406] MBS Connection 최신버전을 내려받는 중 오류가 생겼습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 406] 서버를 재시작 합니다.");
 				break;
 			default:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 불명] 정의되지 않은 오류입니다.");

@@ -39,7 +39,7 @@ class Connection_EULA {
 				Bukkit.getConsoleSender().sendMessage("[알림] 파일 다운로드 진행 중...");
 				try{
 				int len=-1;
-				URLConnection uc=new URL("http://mbsserver.oa.to/MBS_web_DB/eula.txt").openConnection();
+				URLConnection uc=new URL("http://owjs3901.github.io/MBS_web_DB/eula.txt").openConnection();
 				InputStream in=uc.getInputStream();
 				FileOutputStream fos = new FileOutputStream(new File("M's Plugins EULA.txt"));
 				byte[] buffer = new byte[512];
@@ -56,7 +56,7 @@ class Connection_EULA {
 		static ArrayList<String> getEULA()throws Exception
 		{
 			ArrayList<String> eula=new ArrayList<String>();
-			URLConnection uc = new URL("http://mbsserver.oa.to/MBS_web_DB/eula.txt").openConnection();
+			URLConnection uc = new URL("http://owjs3901.github.io/MBS_web_DB/eula.txt").openConnection();
 			BufferedReader in=new BufferedReader(new InputStreamReader( uc.getInputStream(),"MS949"));
 			String a;
 			while(true){

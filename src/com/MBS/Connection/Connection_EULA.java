@@ -3,17 +3,18 @@ package com.MBS.Connection;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 
 class Connection_EULA {
+	static ArrayList<String> eula=new ArrayList<String>();
+	static File FEULA=new File("M's Plugins EULA.txt");
 	static void lookEulaStat(){
-		try(BufferedReader in=new BufferedReader(new FileReader(new File("M's Plugins EULA.txt")))){
-			Bukkit.getConsoleSender().sendMessage("[알림] 정상적인 EULA 문서입니다.");
-			Bukkit.getConsoleSender().sendMessage("[알림] EULA 수락 및 거절 여부를 확인합니다.");
-			ArrayList<String> eula=new ArrayList<String>();
-			String instring;
+		eula.clear();
+		String instring;
+		Bukkit.getConsoleSender().sendMessage("[알림] 정상적인 EULA 문서입니다.");
+		Bukkit.getConsoleSender().sendMessage("[알림] EULA 수락 및 거절 여부를 확인합니다.");
+		try(BufferedReader in=new BufferedReader(new FileReader(FEULA))){
 			while(true){
 				instring=in.readLine();
 				if(instring==null)break;
@@ -39,9 +40,9 @@ class Connection_EULA {
 				Bukkit.getConsoleSender().sendMessage("[알림] 파일 다운로드 진행 중...");
 				try{
 				int len=-1;
-				URLConnection uc=new URL("http://owjs3901.github.io/MBS_web_DB/MBS_Plugin_EULA/eula.txt").openConnection();
+				URLConnection uc=new URL("http://owjs3901.github.io/MBS_WEB_DB/MBS_Plugin_EULA/eula.txt").openConnection();
 				InputStream in=uc.getInputStream();
-				FileOutputStream fos = new FileOutputStream(new File("M's Plugins EULA.txt"));
+				FileOutputStream fos = new FileOutputStream(FEULA);
 				byte[] buffer = new byte[512];
 				while((len = in.read(buffer)) != -1)
 			         fos.write(buffer, 0, len); 
@@ -55,8 +56,8 @@ class Connection_EULA {
 		}
 		static ArrayList<String> getEULA()throws Exception
 		{
-			ArrayList<String> eula=new ArrayList<String>();
-			URLConnection uc = new URL("http://owjs3901.github.io/MBS_web_DB/MBS_Plugin_EULA/eula.txt").openConnection();
+			eula.clear();
+			URLConnection uc = new URL("http://owjs3901.github.io/MBS_WEB_DB/MBS_Plugin_EULA/eula.txt").openConnection();
 			BufferedReader in=new BufferedReader(new InputStreamReader( uc.getInputStream(),"MS949"));
 			String a;
 			while(true){
@@ -68,8 +69,8 @@ class Connection_EULA {
 			return eula;
 		}
 		static void lookEULA(){
-			try(BufferedReader in=new BufferedReader(new FileReader(new File("M's Plugins EULA.txt")));){
-				ArrayList<String> eula=getEULA();
+			try(BufferedReader in=new BufferedReader(new FileReader(FEULA));){
+				eula=getEULA();
 				Bukkit.getConsoleSender().sendMessage("[알림] 네크워크 문서를 이용한 EULA 문서 검토 중...");
 				int count=0;String a;
 				for(String e:eula){
@@ -88,8 +89,8 @@ class Connection_EULA {
 	}
 	static class LocalEULA{
 		static void createEULA(){
-			try(BufferedWriter out=new BufferedWriter(new FileWriter(new File("M's Plugins EULA.txt")))){
-			List<String> eula=getEULA();
+			try(BufferedWriter out=new BufferedWriter(new FileWriter(FEULA))){
+			eula=getEULA();
 			for(String e:eula){
 				out.write(e);out.newLine();
 				}
@@ -101,7 +102,7 @@ class Connection_EULA {
 			catch(Exception e){Connection_Error.setError(0);}
 		}
 		static ArrayList<String> getEULA(){
-			ArrayList<String> eula=new ArrayList<String>();
+			eula.clear();
 			eula.add("이 계약서는 2015년 05월 04일에 작성 되었습니다.");
 			eula.add("EULA를 잘 읽고 전부 수락해주세요.");
 			eula.add("거절시에는 플러그인을 사용할 수 없습니다.");
@@ -150,8 +151,8 @@ class Connection_EULA {
 			return eula;
 		}
 		static void lookEULA(){
-			try(BufferedReader in=new BufferedReader(new FileReader(new File("M's Plugins EULA.txt")));){
-				ArrayList<String> eula=getEULA();
+			try(BufferedReader in=new BufferedReader(new FileReader(FEULA));){
+				eula=getEULA();
 				int count=0;String a;
 				Bukkit.getConsoleSender().sendMessage("[알림] 로컬 문서를 이용한 EULA 문서 검토 중...");
 				for(String e:eula)

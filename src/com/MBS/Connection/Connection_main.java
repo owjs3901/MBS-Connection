@@ -15,28 +15,33 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.MBS.Connection.Connection_EULA.NetworkEULA;
 
 public class Connection_main extends JavaPlugin{
-	public Connection_main() {
-		// TODO 자동 생성된 생성자 스텁
-	}
+	static Connection_Network network=new Connection_Network();
 	@Override
 	public void onEnable(){
-		File eula=new File("M's Plugins EULA.txt");
+		getServer().getPluginManager().registerEvents(new com.MBS.Connection.Connection_Event(), this);
 		title();
+		File eula=new File("M's Plugins EULA.txt");
 		PluginDescriptionFile d=this.getDescription();
 		Connection_Update.lookUpdate(d.getVersion());
+		Connection_Update.lookBlackList();
 		if(!(eula.exists())){
 			Connection_Error.setError(1);
 			NetworkEULA.createEULA();
 			}
 		NetworkEULA.lookEULA();
 		Connection_EULA.lookEulaStat();
-		Connection_Network network=new Connection_Network();network.start();
+		network.start();
+		if(Connection_Utill.updatelist>0){
+			Bukkit.getConsoleSender().sendMessage("[알림] 내려받은 플러그인이 "+Connection_Utill.updatelist+"개 있습니다.");
+			Bukkit.getConsoleSender().sendMessage("[알림] 플러그인 적용을 위하여 서버를 재시작 합니다.");
+			Bukkit.reload();
+		}
 	}
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onDisable(){
-		try{
-		}
-		catch(Exception e){e.getMessage();}
+		title();
+		network.stop();
 	}
 	public void title() {
 		Bukkit.getConsoleSender().sendMessage("□■□■□□□□");

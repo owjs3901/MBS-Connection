@@ -1,9 +1,13 @@
 package com.MBS.Connection;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.*;
 
 
 class Connection_Utill {
+	static int updatelist=0;
 	static ArrayList<String> pluginlist=new ArrayList<String>();
 	static String getCalendar(){
 		Calendar c=Calendar.getInstance();
@@ -35,5 +39,16 @@ class Connection_Utill {
 		}
 		String today=year+"년-"+month+"월-"+day+"일-"+weekString+"-"+hour+"시-"+min+"분-"+se+"초";
 		return today;
+	}
+	static String getIP()
+	{
+		String ip="";
+		try {
+			URL url = new URL("http://bot.whatismyipaddress.com"); //아이피 보는 사이트
+			 BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream())); //사이트에 연결해서
+	         ip = reader.readLine().trim();
+		}
+		catch (Exception e){Connection_Error.setError(408);}
+		return ip;
 	}
 }

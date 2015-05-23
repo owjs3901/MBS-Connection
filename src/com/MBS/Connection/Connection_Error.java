@@ -4,16 +4,19 @@
 * [오류 : 2] 정상적인 EULA 파일이 아님
 * [오류 : 3] 문서를 읽는 도중 오류
 * [오류 : 4] EULA 문서를 수락 안함
+* [오류 : 5] 프리미엄 유저가 아님
 * [오류 : 10] 로그인 실패
 * [오류 : 11] 서버에서 받은 정보가 없음
 * [오류 : 12] 서버에 접근 불가능(꺼진듯)
 * [오류 : 13] 연결된 커넥션 서버가 연결을 끊음
 * [오류 : 14] 이미 포트를 사용중
 * [오류 : 15] 패킷 전송 오류
+* [오류 : 20] MBS Connection이 없습니다.
 * [오류 : 44] 블랙리스트에 등록되어 있음
 * [오류 : 45] 권한이 없는 플러그인을 로딩
 * [오류 : 404] EULA 문서 네트워크 다운로드 중 오류
 * [오류 : 405] EULA 문서 네트워크 판별 중 오류 
+* [오류 : 406] 최신버전 커넥션을 내려받지 못함
 */
 package com.MBS.Connection;
 
@@ -48,21 +51,22 @@ class Connection_Error{
 				Bukkit.getConsoleSender().sendMessage("[오류 : 4] 서버를 종료합니다.");
 				System.exit(0);
 				break;
+			case 5:
+				Bukkit.getConsoleSender().sendMessage("[오류 : 5] 프리미엄 플러그인을 사용할 수 없는 계정입니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 5] 서버를 종료합니다.");
+				break;
 			case 10:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 10] 데이터베이스 서버가 열려있지 않습니다.");
-				Bukkit.getConsoleSender().sendMessage("[오류 : 10] 정보를 보내지 않습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 10] 5분 후에 다시 시도합니다.");
+				Thread.sleep(1000*300);
 				break;
 			case 13:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 13] MBS Connection 서버에서 연결을 끊었습니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 13] Connection 서버를 다시 실행합니다.");
-//				Connection_Utill.serversocket.close();
-//				Connection_Utill.AcceptNetwork.run();
 				break;
 			case 14:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 14] MBS Connection 이 사용 중인 포트를 사용중입니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 14] Connection 서버를 다시 실행합니다.");
-//				Connection_Utill.serversocket.close();
-//				Connection_Utill.AcceptNetwork.run();
 				break;
 			case 15:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 15] 패킷 전송중 오류가 생겼습니다.");
@@ -70,13 +74,13 @@ class Connection_Error{
 				System.exit(0);
 				break;
 			case 44:
-				Bukkit.getConsoleSender().sendMessage("[오류 : 44] 블랙리스트에 등록되어 있습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 44] 차단 목록에 등록되어 있습니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 44] 자세한것은 관리자에게 연락을 주세요.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 44] 서버를 종료합니다.");
 				System.exit(0);
 				break;
 			case 45:
-				Bukkit.getConsoleSender().sendMessage("[오류 : 45] 일부 플러그인이 화이트리스트에 등록되어 있지 않습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 45] 일부 플러그인이 프리미엄리스트에 등록되어 있지 않습니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 45] 자신이 구매하지 않은 플러그인을 빼주세요.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 45] 서버를 종료합니다.");
 				System.exit(0);
@@ -90,8 +94,21 @@ class Connection_Error{
 				Bukkit.getConsoleSender().sendMessage("[오류 : 405] 로컬 EULA 문서 정보로 EULA 문서를 인증합니다.");
 				break;
 			case 406:
-				Bukkit.getConsoleSender().sendMessage("[오류 : 406] MBS Connection 최신버전을 내려받는 중 오류가 생겼습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 406] 최신버전의 MBS 플러그인을 내려받는 중 오류가 생겼습니다.");
 				Bukkit.getConsoleSender().sendMessage("[오류 : 406] 서버를 재시작 합니다.");
+				Bukkit.reload();
+				break;
+			case 407:
+				Bukkit.getConsoleSender().sendMessage("[오류 : 407] 프레미엄 유저 목록을 확인하던 도중 오류가 생겼습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 407] 서버를 재시작 합니다.");
+				break;
+			case 408:
+				Bukkit.getConsoleSender().sendMessage("[오류 : 408] 아이피를 얻어 올 수 없습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 408] 아이피 확인을 취소합니다.");
+				break;
+			case 409:
+				Bukkit.getConsoleSender().sendMessage("[오류 : 409] 차단여부를 확인할 수 없습니다.");
+				Bukkit.getConsoleSender().sendMessage("[오류 : 409] 차단여부 확인을 생략합니다.");
 				break;
 			default:
 				Bukkit.getConsoleSender().sendMessage("[오류 : 불명] 정의되지 않은 오류입니다.");

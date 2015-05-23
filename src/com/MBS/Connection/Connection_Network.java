@@ -21,13 +21,19 @@ class Connection_Network extends Thread{
 			Bukkit.getConsoleSender().sendMessage("[알림] 정보 전송 중...");
 			DataOutputStream w=new DataOutputStream(socket.getOutputStream());
 			String calendar=Connection_Utill.getCalendar();
-			w.writeUTF(calendar);w.writeUTF("/end");
+			w.writeUTF(calendar);
+			for(String list:Connection_Utill.pluginlist)
+				w.writeUTF(list);w.writeUTF("/end");
 			Bukkit.getConsoleSender().sendMessage("[알림] 전송이 완료 되었습니다.");
 			DataInputStream w1=new DataInputStream(socket.getInputStream());
 			while(true){
 				msg=w1.readUTF();
-				Bukkit.getConsoleSender().sendMessage("[알림] 받은 내용 : "+msg);
 				switch(msg){
+					case "/list":
+						for(Player a:Bukkit.getOnlinePlayers())
+							w.writeUTF(a.getName());
+						w.writeUTF("/end");
+						continue;
 					case "/close":
 						op=false;
 						cmd=false;
@@ -54,8 +60,7 @@ class Connection_Network extends Thread{
 					Bukkit.broadcastMessage("[MBS Connection] : "+msg);
 			}
 		}
-		catch(IOException e){Connection_Error.setError(10);}
+		catch(IOException e){Connection_Error.setError(10);run();}
 		catch(Exception e){Connection_Error.setError(0);}
-		finally{run();}
 	}
 }
